@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="header">
+    <div class="row">
+      <div class="col-xs-7">
+        <h1 class="title">Offices or labs</h1>
+        <p class="category">The offices or labs where the items are stored.</p>
+      </div>
+      <div class="col-xs-3">
+        <h2 class="category">Display type: </h2>
+        <button class="btn btn-default" [ngClass]="{'btn-fill': displayType === 0}" (click)="selectDisplayType()">
+          <i class="ti-view ti-view-list-alt"></i>
+        </button>
+        <button class="btn btn-default" [ngClass]="{'btn-fill': displayType === 1}" (click)="selectDisplayType()">
+          <i class="ti-view ti-view-grid"></i>
+        </button>
+      </div>
+      <div class="col-xs-2">
+        <a class="btn btn-primary" (click)="addNew()">
+          <i class="ti-plus"></i>
+          Add new
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <table *ngIf="displayType === 0" class="table">
+      <thead>
+        <th class="text-center">Name</th>
+        <th class="text-center">Actions</th>
+      </thead>
+      <tbody>
+        <tr class="cursor-pointer"  *ngFor="let office of offices" (click)="viewDetail(office)">
+          <td>
+            <strong>
+              {{office.name}}
+            </strong>
+          </td>
+          <td class="justify-content-center">
+            <button class="btn btn-primary" (click)="viewDetail(office)">
+              <i class="ti-pencil-alt"></i>
+              View
+            </button>
+            <button class="btn btn-sucess" (click)="update(office)">
+              <i class="ti-pencil-alt"></i>
+              Edit
+            </button>
+            <button class="btn btn-fill btn-danger" (click)="delete(office)">
+              <i class="ti-tdash"></i>          
+              Delete
+            </button>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="displayType === 1">
+      <div class="office">
+        <div class="card text-center cursor-pointer" *ngFor="let office of offices" (click)="viewDetail(office)">
+          <div class="header">
+            <h2>{{office.name}}</h2>
+          </div>
+          <div class="content">
+            <button class="btn btn-primary" (click)="viewDetail(office)">View</button>
+            <button class="btn btn-success" (click)="update(office)">Edit</button>
+            <button class="btn btn-fill btn-danger" (click)="delete(office)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

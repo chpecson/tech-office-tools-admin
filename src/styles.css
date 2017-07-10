@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
+
+.cursor-pointer,
+.cp {
+    cursor: pointer;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}

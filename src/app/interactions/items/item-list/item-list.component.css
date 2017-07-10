@@ -1,0 +1,31 @@
+th {
+    font-size: 150%;
+}
+
+.row,
+.col-xs-3 {
+    display: flex;
+    align-items: center;
+}
+
+.col-xs-3 {
+    justify-content: space-around;
+}
+
+.col-xs-3 .category {
+    margin: 0;
+}
+
+.justify-content-center .btn {
+    margin-right: 1rem;
+}
+
+.office {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.office .card {
+    width: 45%;
+    margin: 1rem;
+}

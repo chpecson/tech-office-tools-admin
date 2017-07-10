@@ -1,0 +1,88 @@
+<div class="card">
+  <div class="header">
+    <h1 class="title">{{titleText}}</h1>
+  </div>
+  <div class="content">
+    <form [formGroup]="itemForm" (ngSubmit)="save(itemForm)">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group" [ngClass]="{'has-error': !selectedItemCategory, 'has-success': !!selectedItemCategory}">
+            <label>Category</label>
+            <div class="dropdown">
+              <a href="#" class="btn dropdown-toggle text-capitalize" data-toggle="dropdown" text-capitalize>
+                  {{selectedItemCategory}}
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="cursor-pointer" *ngFor="let category of itemCategories">
+                  <a class="text-capitalize" (click)="selectItemCategory(category)">{{formatItemCategory(category.name)}}</a>
+                </li>
+              </ul>
+              <a href="#" (click)="addNewCategory($event)">Add new category</a>
+            </div>
+            <p class="help-block" *ngIf="!selectedItemCategory">Please select a category.</p>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="form-group" [ngClass]="{ 'has-error': !itemForm.controls['brand'].valid && itemForm.controls['brand'].dirty }">
+            <label for="">Brand</label>
+            <input type="text" class="form-control border-input" formControlName="brand">
+            <p class="help-block" *ngIf="!itemForm.controls['brand'].valid && itemForm.controls['brand'].dirty">Please type the brand. eg. ASUS, Gigabyte, MSI, etc.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group" [ngClass]="{ 'has-error': !itemForm.controls['model'].valid && itemForm.controls['model'].dirty }">
+            <label for="">Model</label>
+            <input type="text" class="form-control border-input" formControlName="model">
+            <p class="help-block" *ngIf="!itemForm.controls['model'].valid && itemForm.controls['model'].dirty">Please type the model name.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group" [ngClass]="{'has-error': !selectedItemStatus, 'has-success': !!selectedItemStatus}">
+            <label>Status</label>
+            <div class="dropdown">
+              <a href="#" class="btn dropdown-toggle text-capitalize" data-toggle="dropdown" text-capitalize>
+                  {{selectedItemStatus}}
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="cursor-pointer" *ngFor="let status of itemStatus">
+                  <a class="text-capitalize" (click)="selectItemStatus(status)">{{status.name}}</a>
+                </li>
+              </ul>
+              <a href="#" (click)="addNewStatus($event)">Add new status</a>
+            </div>
+            <p class="help-block" *ngIf="!selectedItemStatus">Please select a status.</p>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group" [ngClass]="{ 'has-error': !itemForm.controls['serialNumber'].valid && itemForm.controls['serialNumber'].dirty }">
+            <label for="">Serial number</label>
+            <input type="text" class="form-control border-input" formControlName="serialNumber">
+            <p class="help-block" *ngIf="!itemForm.controls['serialNumber'].valid && itemForm.controls['serialNumber'].dirty">Ples type the serial number.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="">Description</label>
+            <textarea cols="10" type="text" class="form-control border-input" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-primary" type="submit">Save</button>
+          <button class="btn btn-fill btn-danger">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
