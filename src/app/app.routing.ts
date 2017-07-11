@@ -15,6 +15,11 @@ import { ItemFormComponent } from './interactions/items/item-form/item-form.comp
 
 export const AppRoutes: Routes = [
     {
+        path: '**',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+    },
+    {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
