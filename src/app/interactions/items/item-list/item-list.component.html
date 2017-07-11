@@ -28,7 +28,8 @@
   <div class="content">
     <table *ngIf="displayType === 0 && items.length > 0" class="table">
       <thead>
-        <th class="text-center">Name</th>
+        <th class="text-left">Name</th>
+        <th class="text-center">Category</th>
         <th class="text-center">Actions</th>
       </thead>
       <tbody>
@@ -37,6 +38,9 @@
             <strong>
               {{item.brand}} {{item.model}}
             </strong>
+          </td>
+          <td class="text-center text-primary">
+            {{item.category | humanize}}
           </td>
           <td class="justify-content-center">
             <button class="btn btn-sucess" (click)="update(item)">
@@ -60,10 +64,11 @@
     <div *ngIf="displayType === 1">
       <div class="item">
         <div class="card text-center cursor-pointer" *ngFor="let item of items">
+          <h2 class="text-left text-primary">{{item.category | humanize}}</h2>
           <div class="header">
-            <h2>
+            <h3>
               {{item.brand}} {{item.model}}
-            </h2>
+            </h3>
           </div>
           <div class="content">
             <button class="btn btn-success" (click)="update(item)">Edit</button>

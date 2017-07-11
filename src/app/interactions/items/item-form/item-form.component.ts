@@ -14,6 +14,8 @@ declare var swal: any;
 })
 export class ItemFormComponent implements OnInit {
 
+  saveType: string;
+
   items$: AfoListObservable<any[]>;
 
   itemCategories$: AfoListObservable<any[]>;
@@ -68,15 +70,24 @@ export class ItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
+      this.saveType = params.saveType;
 
       if (params.saveType === 'add') {
         this.titleText = 'Add new item';
         this.selecteditemLocation = params.location;
       } else {
-        this.selectedItem = decodeURIComponent(params.selected);
+        this.selectedItem = decodeURIComponent(params.selectedItem);
         this.selectedItem = JSON.parse(this.selectedItem);
 
         this.titleText = `Update ${this.selectedItem.brand} ${this.selectedItem.brand}`;
+
+        this.selecteditemLocation = this.selectedItem.location;
+        this.itemForm = this.fb.group({
+          brand: [this.selectedItem.brand, Validators.required],
+          model: [this.selectedItem.model, Validators.required],
+          serialNumber: [this.selectedItem.serialNumber, Validators.required],
+          description: this.selectedItem.description
+        });
       }
     });
   }
@@ -220,7 +231,7 @@ export class ItemFormComponent implements OnInit {
     const THIS = this;
 
     const ITEM = {
-      category: {},
+      category: this.selectedItemCategory,
       brand: form.value.brand,
       model: form.value.model,
       serialNumber: form.value.serialNumber,
@@ -228,15 +239,25 @@ export class ItemFormComponent implements OnInit {
       description: form.value.description,
       location: this.selecteditemLocation
     };
-    ITEM['category'][this.selectedItemCategoryKey] = true;
 
-    this.items$.push(ITEM);
-    swal(
-      'Added new item',
-      'You\'ve sucessfully added a new item.',
-      'success'
-    ).then(() => {
-      THIS.goBack();
-    });
+    if (this.saveType === 'add') {
+      this.items$.push(ITEM);
+      swal(
+        'Added new item',
+        'You\'ve sucessfully added a new item.',
+        'success'
+      ).then(() => {
+        THIS.goBack();
+      });
+    } else {
+      swal(
+        'Updated an item',
+        'You\'ve sucessfully updated an item.',
+        'success'
+      ).then(() => {
+        THIS.goBack();
+      });
+    }
+
   }
 }

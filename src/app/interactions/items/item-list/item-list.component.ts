@@ -83,7 +83,9 @@ export class ItemListComponent implements OnInit {
   update(item) {
     const ITEM = {
       key: item.$key,
-      name: item.name,
+      brand: item.brand,
+      model: item.model,
+      description: item.description,
       dateAdded: item.dateAdded,
     };
 
