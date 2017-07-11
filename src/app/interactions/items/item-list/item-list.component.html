@@ -4,9 +4,9 @@
       <div class="col-xs-7">
         <h1 class="title cursor-pointer" (click)="goBack()">
           <i class="ti-back-left"></i>
-          {{titleText}} items
+          {{titleText | humanize}} items
         </h1>
-        <p class="category">The list of items in {{titleText}}.</p>
+        <p class="category">The list of items in {{titleText | humanize}}.</p>
       </div>
       <div class="col-xs-3">
         <h2 class="category">Display type: </h2>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="content">
-    <table *ngIf="displayType === 0" class="table">
+    <table *ngIf="displayType === 0 && items.length > 0" class="table">
       <thead>
         <th class="text-center">Name</th>
         <th class="text-center">Actions</th>
@@ -50,6 +50,12 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-warning" *ngIf="items.length === 0">No items added. Please add one.</h2>
+      </div>
+    </div>
 
     <div *ngIf="displayType === 1">
       <div class="item">

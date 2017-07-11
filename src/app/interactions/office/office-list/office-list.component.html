@@ -29,10 +29,10 @@
         <th class="text-center">Actions</th>
       </thead>
       <tbody>
-        <tr class="cursor-pointer"  *ngFor="let office of offices" (click)="viewDetail(office)">
+        <tr class="cursor-pointer"  *ngFor="let office of offices">
           <td>
             <strong>
-              {{office.name}}
+              {{office.name | humanize}}
             </strong>
           </td>
           <td class="justify-content-center">
@@ -56,7 +56,7 @@
       <div class="office">
         <div class="card text-center cursor-pointer" *ngFor="let office of offices" (click)="viewDetail(office)">
           <div class="header">
-            <h2>{{office.name}}</h2>
+            <h2>{{office.name | humanize}}</h2>
           </div>
           <div class="content">
             <button class="btn btn-primary" (click)="viewDetail(office)">View</button>

@@ -5,6 +5,27 @@
   <div class="content">
     <form [formGroup]="itemForm" (ngSubmit)="save(itemForm)">
       <div class="row">
+        <div class="col-md-12">
+          <div class="form-group" [ngClass]="{'has-error': !selecteditemLocation, 'has-success': !!selecteditemLocation}">
+            <label>Item Location</label>
+            <div class="dropdown">
+              <a href="#" class="btn dropdown-toggle text-capitalize" data-toggle="dropdown">
+                  {{selecteditemLocation | humanize}}
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="cursor-pointer" *ngFor="let itemLocation of itemLocations">
+                  <a class="text-capitalize" (click)="selectItemLocation(itemLocation)">{{itemLocation.name | humanize}}</a>
+                </li>
+              </ul>
+              <a href="#" (click)="addNewItemLocation($event)">Add new item location</a>
+            </div>
+            <p class="help-block" *ngIf="!selectedItemCategory">Please select a location for the item.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-3">
           <div class="form-group" [ngClass]="{'has-error': !selectedItemCategory, 'has-success': !!selectedItemCategory}">
             <label>Category</label>
@@ -15,7 +36,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li class="cursor-pointer" *ngFor="let category of itemCategories">
-                  <a class="text-capitalize" (click)="selectItemCategory(category)">{{formatItemCategory(category.name)}}</a>
+                  <a class="text-capitalize" (click)="selectItemCategory(category)">{{category.name | humanize}}</a>
                 </li>
               </ul>
               <a href="#" (click)="addNewCategory($event)">Add new category</a>
@@ -80,7 +101,7 @@
       <div class="row">
         <div class="col-md-12">
           <button class="btn btn-primary" type="submit">Save</button>
-          <button class="btn btn-fill btn-danger">Cancel</button>
+          <button class="btn btn-fill btn-danger" (click)="goBack($event)">Cancel</button>
         </div>
       </div>
     </form>

@@ -65,8 +65,6 @@ export class OfficeFormComponent implements OnInit {
   }
 
   save(form) {
-    console.log(form.controls);
-
     const OFFICE = {
       dateAdded: form.value.dateAdded,
       name: form.value.name

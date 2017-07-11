@@ -11,7 +11,10 @@ declare var swal: any;
 })
 export class ItemListComponent implements OnInit {
   items$: AfoListObservable<any[]>;
-  items: Array<any>;
+  items: Array<any> = [];
+
+  itemCategories$: AfoListObservable<any[]>;
+  itemCategories: Array<any>;
 
   displayType: number;
   selectedOffice: any;
@@ -28,6 +31,7 @@ export class ItemListComponent implements OnInit {
     }
 
     this.items$ = afo.list('/items1');
+    this.itemCategories$ = afo.list('item_categories');
   }
 
   ngOnInit() {
@@ -38,8 +42,18 @@ export class ItemListComponent implements OnInit {
       this.titleText = this.selectedOffice.name;
     });
 
+    this.resetData();
+  }
+
+  resetData() {
     this.items$.subscribe((items) => {
-      this.items = items;
+      this.items = items.filter((item) => {
+        return item.location === this.selectedOffice.name;
+      });
+    });
+
+    this.itemCategories$.subscribe((itemCategories) => {
+      this.itemCategories = itemCategories;
     });
   }
 
@@ -60,7 +74,8 @@ export class ItemListComponent implements OnInit {
   addNew() {
     this.router.navigate(['item-form'], {
       queryParams: {
-        saveType: 'add'
+        saveType: 'add',
+        location: this.titleText
       }
     })
   }
@@ -97,7 +112,9 @@ export class ItemListComponent implements OnInit {
         'Deleted!',
         `${item.name} has been deleted.`,
         'success'
-      )
+      ).then(() => {
+        THIS.resetData();
+      })
     }, function (dismiss) {
       // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
       if (!!dismiss) {
@@ -107,7 +124,6 @@ export class ItemListComponent implements OnInit {
           'error'
         )
       }
-    })
+    });
   }
-
 }

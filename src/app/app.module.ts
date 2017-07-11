@@ -29,6 +29,8 @@ import { OfficeFormComponent } from './interactions/office/office-form/office-fo
 import { ItemListComponent } from './interactions/items/item-list/item-list.component';
 import { ItemFormComponent } from './interactions/items/item-form/item-form.component';
 
+import { HumanizePipe } from './shared/pipes/humanize.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,8 @@ import { ItemFormComponent } from './interactions/items/item-form/item-form.comp
     OfficeListComponent,
     OfficeFormComponent,
     ItemListComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    HumanizePipe
   ],
   imports: [
     BrowserModule,
