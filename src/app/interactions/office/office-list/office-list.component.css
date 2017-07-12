@@ -3,16 +3,16 @@ th {
 }
 
 .row,
-.col-xs-3 {
+.display-type {
     display: flex;
     align-items: center;
 }
 
-.col-xs-3 {
+.display-type {
     justify-content: space-around;
 }
 
-.col-xs-3 .category {
+.display-type .category {
     margin: 0;
 }
 

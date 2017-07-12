@@ -78,7 +78,7 @@ export class OfficeListComponent implements OnInit {
     this.router.navigate(['office-form'], {
       queryParams: {
         saveType: 'update',
-        selectedOffice: encodeURIComponent(JSON.stringify(office))
+        selectedOffice: encodeURIComponent(JSON.stringify(OFFICE))
       }
     })
   }

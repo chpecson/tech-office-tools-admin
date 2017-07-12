@@ -12,3 +12,9 @@
 .text-capitalize {
     text-transform: capitalize;
 }
+
+.logo-img > img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}

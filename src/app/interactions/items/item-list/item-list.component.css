@@ -20,12 +20,12 @@ th {
     margin-right: 1rem;
 }
 
-.office {
+.items {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-.office .card {
+.items .card {
     width: 45%;
     margin: 1rem;
 }

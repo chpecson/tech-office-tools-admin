@@ -54,7 +54,7 @@ export class OfficeFormComponent implements OnInit {
 
         this.officeForm = this.fb.group({
           dateAdded: new Date(),
-          name: [this.selectedOffice.name, Validators.required]
+          name: [ this.transform(this.selectedOffice.name), Validators.required]
         });
       }
     });
@@ -67,7 +67,7 @@ export class OfficeFormComponent implements OnInit {
   save(form) {
     const OFFICE = {
       dateAdded: form.value.dateAdded,
-      name: form.value.name
+      name: (form.value.name.toString().replace(' ', '_')).toLowerCase()
     };
 
     if (form.valid) {
@@ -97,6 +97,16 @@ export class OfficeFormComponent implements OnInit {
 
   saveInput(event) {
     localStorage.setItem('tempOfficeName', event.target.value);
+  }
+
+  transform(value: string, type?: any): any {
+    if (!!value) {
+      const FRAGMENTS = value.split('_');
+      for (let charIndex = 0; charIndex < FRAGMENTS.length; charIndex++) {
+        FRAGMENTS[charIndex] = FRAGMENTS[charIndex].charAt(0).toUpperCase() + FRAGMENTS[charIndex].slice(1);
+      }
+      return FRAGMENTS.join(' ');
+    }
   }
 
 }
