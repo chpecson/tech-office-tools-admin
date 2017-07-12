@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline';
 
+import * as _ from 'underscore';
 declare var swal: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class ItemListComponent implements OnInit {
   items: Array<any> = [];
 
   itemCategories$: AfoListObservable<any[]>;
-  itemCategories: Array<any>;
+  itemCategories: Array<any> = [];
 
   displayType: number;
   selectedOffice: any;
@@ -50,10 +51,11 @@ export class ItemListComponent implements OnInit {
       this.items = items.filter((item) => {
         return item.location === this.selectedOffice.name;
       });
-    });
 
-    this.itemCategories$.subscribe((itemCategories) => {
-      this.itemCategories = itemCategories;
+      items.map(item => {
+        this.itemCategories.push(item.category);
+      });
+      this.itemCategories = _.uniq(this.itemCategories);
     });
   }
 
@@ -87,18 +89,20 @@ export class ItemListComponent implements OnInit {
       model: item.model,
       description: item.description,
       dateAdded: item.dateAdded,
+      location: item.location
     };
 
     this.router.navigate(['item-form'], {
       queryParams: {
         saveType: 'update',
-        selectedItem: encodeURIComponent(JSON.stringify(item))
+        selectedItem: encodeURIComponent(JSON.stringify(ITEM))
       }
     })
   }
 
   delete(item) {
     const THIS = this;
+    const ITEM_NAME = `${item.brand} ${item.model}`;
 
     swal({
       title: 'Are you sure?',
@@ -109,20 +113,19 @@ export class ItemListComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then(function () {
       THIS.items$.remove(item.$key);
+      THIS.resetData();
 
       swal(
         'Deleted!',
-        `${item.name} has been deleted.`,
+        `${ITEM_NAME} has been deleted.`,
         'success'
-      ).then(() => {
-        THIS.resetData();
-      })
+      );
     }, function (dismiss) {
       // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
       if (!!dismiss) {
         swal(
           'Cancelled',
-          `${item.name} is safe :)`,
+          `${ITEM_NAME} is safe :)`,
           'error'
         )
       }

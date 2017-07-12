@@ -230,6 +230,8 @@ export class ItemFormComponent implements OnInit {
   save(form) {
     const THIS = this;
 
+    console.log(this.selectedItem);
+
     const ITEM = {
       category: this.selectedItemCategory,
       brand: form.value.brand,
@@ -250,6 +252,7 @@ export class ItemFormComponent implements OnInit {
         THIS.goBack();
       });
     } else {
+      this.items$.update(this.selectedItem.key, ITEM);
       swal(
         'Updated an item',
         'You\'ve sucessfully updated an item.',

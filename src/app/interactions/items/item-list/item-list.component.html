@@ -6,7 +6,6 @@
           <i class="ti-back-left"></i>
           {{titleText | humanize}} items
         </h1>
-        <p class="category">The list of items in {{titleText | humanize}}.</p>
       </div>
       <div class="col-xs-3">
         <h2 class="category">Display type: </h2>
@@ -57,25 +56,31 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h2 class="text-warning" *ngIf="items.length === 0">No items added. Please add one.</h2>
+        <h2 class="text-warning" *ngIf="items.length === 0">No items added. Please add one or two.</h2>
       </div>
     </div>
 
-    <div *ngIf="displayType === 1">
-      <div class="items">
-        <div class="card text-center cursor-pointer" *ngFor="let item of items">
-          <h2 class="text-left text-primary">{{item.category | humanize}}</h2>
-          <div class="header">
-            <h3>
-              {{item.brand}} {{item.model}}
-            </h3>
-          </div>
-          <div class="content">
-            <button class="btn btn-success" (click)="update(item)">Edit</button>
-            <button class="btn btn-fill btn-danger" (click)="delete(item)">Delete</button>
-          </div>
+
+    <div *ngIf="displayType === 1 && items.length > 0">
+      <div class="card" *ngFor="let itemCategory of itemCategories">
+        <h2 class="text-primary">{{itemCategory | humanize}}</h2>
+        <div class="items">
+          <section *ngFor="let item of items" class="card-container">
+            <div class="card text-center cursor-pointer" *ngIf="itemCategory === item.category">
+              <div class="header">
+                <h4>
+                  {{item.brand}} {{item.model}}
+                </h4>
+              </div>
+              <div class="content">
+                <button class="btn btn-success" (click)="update(item)">Edit</button>
+                <button class="btn btn-fill btn-danger" (click)="delete(item)">Delete</button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
+
     </div>
   </div>
 </div>

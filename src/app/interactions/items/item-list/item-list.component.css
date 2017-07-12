@@ -25,7 +25,11 @@ th {
     justify-content: center;
     flex-wrap: wrap;
 }
-.items .card {
+.items .card-container {
     width: 45%;
     margin: 1rem;
+}
+
+.card-container .card {
+    width: 100%;
 }
